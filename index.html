@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>markdown to html</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <h6>原文</h6>
+<blockquote>
+<p><a href="https://www.cnblogs.com/shcrk/p/9338423.html">博客原文</a></p>
+</blockquote>
+<h6>大纲</h6>
+<blockquote>
+<p>1、什么是vue指令
+2、向指令中传入参数
+3、指令中带入修饰符
+4、指令的缩写
+5、常见的vue指令
+5.1、v-model双向绑定数据
+5.2、v-for循环
+5.3、v-if 元素的存在与否
+5.4、v-else 搭配v-if使用
+5.5、v-else-if搭配v-if使用
+5.6、v-bind 属性绑定
+5.7、v-style 通过v-bind实现style的绑定
+5.8、v-class 通过v-bind实现class的绑定
+5.9、v-on 事件绑定
+5.10、v-text 读取文本
+5.11、v-html 读取html标签
+5.12、v-once 只渲染一次
+5.13、v-pre 把标签内部的元素原位输出
+5.14、v-show 是否显示</p>
+</blockquote>
+<h6>1、什么是vue指令</h6>
+<blockquote>
+<p>指令 (Directives) 是带有 v- 前缀的特殊属性。指令属性的值预期是单个 JavaScript 表达式 (v-for 是例外情况，稍后我们再讨论)。指令的职责是，当表达式的值改变时，将其产生的连带影响，响应式地作用于 DOM。</p>
+</blockquote>
+<pre><code>&lt;p v-if=&quot;seen&quot;&gt;现在你看到我了&lt;/p&gt;
+
+&lt;!--
+    这里，v-if 指令将根据表达式 seen 的值的真假来插入/移除 &lt;p&gt; 元素。
+--&gt;
+</code></pre>
+<h6>2、向指令中传入参数</h6>
+<blockquote>
+<p>一些指令能够接收一个“参数”，在指令名称之后以冒号表示。
+例如，v-bind 指令可以用于响应式地更新 HTML 属性：</p>
+</blockquote>
+<pre><code>&lt;a v-bind:href=&quot;url&quot;&gt;...&lt;/a&gt;
+&lt;!--
+    在这里 href 是参数，告知 v-bind 指令将该元素的 href 属性与表达式 url 的值绑定。
+--&gt;
+</code></pre>
+<blockquote>
+<p>另一个例子是 v-on 指令，它用于监听 DOM 事件：</p>
+</blockquote>
+<pre><code>&lt;a v-on:click=&quot;doSomething&quot;&gt;...&lt;/a&gt;
+
+&lt;!--
+    在这里参数是监听的事件名。
+--&gt;
+</code></pre>
+<h6>3、指令中带入修饰符</h6>
+<blockquote>
+<p>修饰符 (Modifiers) 是以半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。例如，.prevent 修饰符告诉 v-on 指令对于触发的事件调用 event.preventDefault()：</p>
+</blockquote>
+<pre><code>&lt;form v-on:submit.prevent=&quot;onSubmit&quot;&gt;...&lt;/form&gt;
+</code></pre>
+<h6>4、指令的缩写</h6>
+<blockquote>
+<p>v- 前缀作为一种视觉提示，用来识别模板中 Vue 特定的特性。当你在使用 Vue.js 为现有标签添加动态行为 (dynamic behavior) 时，v- 前缀很有帮助，然而，对于一些频繁用到的指令来说，就会感到使用繁琐。同时，在构建由 Vue.js 管理所有模板的单页面应用程序 (SPA - single page application) 时，v- 前缀也变得没那么重要了。因此，Vue.js 为 v-bind 和 v-on 这两个最常用的指令，提供了特定简写：</p>
+</blockquote>
+<pre><code>&lt;!--
+    v-bind 缩写
+--&gt;
+&lt;!-- 完整语法 --&gt;
+&lt;a v-bind:href=&quot;url&quot;&gt;...&lt;/a&gt;
+
+&lt;!-- 缩写 --&gt;
+&lt;a :href=&quot;url&quot;&gt;...&lt;/a&gt;
+
+&lt;!--
+    v-on 缩写
+--&gt;
+
+&lt;!-- 完整语法 --&gt;
+&lt;a v-on:click=&quot;doSomething&quot;&gt;...&lt;/a&gt;
+
+&lt;!-- 缩写 --&gt;
+&lt;a @click=&quot;doSomething&quot;&gt;...&lt;/a&gt;
+</code></pre>
+<blockquote>
+<p>它们看起来可能与普通的 HTML 略有不同，但 : 与 @ 对于特性名来说都是合法字符，在所有支持 Vue.js 的浏览器都能被正确地解析。而且，它们不会出现在最终渲染的标记中。缩写语法是完全可选的，但随着你更深入地了解它们的作用，你会庆幸拥有它们。</p>
+</blockquote>
+<h6>5、常见的vue指令</h6>
+<h6>5.1、v-model双向绑定数据</h6>
+<pre><code>&lt;input type=&quot;text&quot; v-model=&quot;msg&quot;/&gt;
+{{msg}} &lt;!--取数据--&gt;
+</code></pre>
+<h6>5.2、v-for循环</h6>
+<blockquote>
+<p>我们用 v-for 指令根据一组数组的选项列表进行渲染。v-for 指令需要使用 item in items 形式的特殊语法，items 是源数据数组并且 item 是数组元素迭代的别名。</p>
+</blockquote>
+<pre><code>&lt;ul&gt;
+    &lt;li v-for=&quot;item of items&quot; v-bind:key=&quot;item.age&quot;&gt;
+        &lt;span&gt;{{item.name}}&lt;/span&gt;
+        &lt;span&gt;{{item.age}}&lt;/span&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<pre><code>items: [
+    {&#39;name&#39;: &#39;xiaohong1&#39;, &#39;age&#39;: 12},
+    {&#39;name&#39;: &#39;xiaohong2&#39;, &#39;age&#39;: 12},
+    {&#39;name&#39;: &#39;xiaohong3&#39;, &#39;age&#39;: 12},
+    {&#39;name&#39;: &#39;xiaohong4&#39;, &#39;age&#39;: 12}
+]
+</code></pre>
+<h6>5.3、v-if 元素的存在与否</h6>
+<blockquote>
+<p>控制元素的存在与否，当传入v-if的值是true的时候则v-if绑定的DOM存在（切记这里说的是存在与否而不是显示与否）</p>
+</blockquote>
+<pre><code>&lt;div&gt;
+    &lt;span class=&quot;title&quot;&gt;存在或不存在：v-if&lt;/span&gt;&lt;br&gt;
+    &lt;span v-if=&quot;condition&quot;&gt;存在&lt;/span&gt;&lt;br&gt;
+    &lt;span v-if=&quot;!condition&quot;&gt;不存在&lt;/span&gt;&lt;br&gt;
+&lt;/div&gt;
+</code></pre>
+<h6>5.4、v-else 搭配v-if使用</h6>
+<blockquote>
+<p>使用 v-else 指令来表示 v-if 的“else 块”
+v-else 元素必须紧跟在带 v-if 或者 v-else-if 的元素的后面，否则它将不会被识别。</p>
+</blockquote>
+<pre><code>&lt;div v-if=&quot;Math.random() &gt; 0.5&quot;&gt;
+  Now you see me
+&lt;/div&gt;
+&lt;div v-else&gt;
+  Now you don&#39;t
+&lt;/div&gt;
+</code></pre>
+<h6>5.5、v-else-if搭配v-if使用</h6>
+<blockquote>
+<p>2.1.0 新增
+v-else-if，顾名思义，充当 v-if 的“else-if 块”，可以连续使用：
+类似于 v-else，v-else-if 也必须紧跟在带 v-if 或者 v-else-if 的元素之后。</p>
+</blockquote>
+<pre><code>&lt;div v-if=&quot;type === &#39;A&#39;&quot;&gt;
+  A
+&lt;/div&gt;
+&lt;div v-else-if=&quot;type === &#39;B&#39;&quot;&gt;
+  B
+&lt;/div&gt;
+&lt;div v-else-if=&quot;type === &#39;C&#39;&quot;&gt;
+  C
+&lt;/div&gt;
+&lt;div v-else&gt;
+  Not A/B/C
+&lt;/div&gt;
+</code></pre>
+<h6>5.6、v-bind 属性绑定</h6>
+<blockquote>
+<p>通过v-bind可以动态绑定标签上的属性的值，如input的value/name等属性的值。</p>
+</blockquote>
+<pre><code>&lt;input v-bind:value=&quot;name&quot;&gt;
+</code></pre>
+<p>######5.7、v-style 通过v-bind实现style的绑定</p>
+<blockquote>
+<p>vue中没有专门style的绑定，但是可以通过v-bind实现类似于v-style的绑定。</p>
+</blockquote>
+<pre><code>&lt;span v-bind:style=&quot;{&#39;color&#39;:&#39;red&#39;}&quot;&gt;绑定color:red样式&lt;/span&gt;
+</code></pre>
+<h6>5.8、v-class 通过v-bind实现class的绑定</h6>
+<blockquote>
+<p>vue中没有专门class的绑定，但是可以通过v-bind实现类似于v-class的绑定。</p>
+</blockquote>
+<pre><code>&lt;span v-bind:class=&quot;&#39;text&#39;&quot;&gt;绑定title样式&lt;/span&gt;
+</code></pre>
+<h6>5.9、v-on 事件绑定</h6>
+<blockquote>
+<p>可以用 v-on 指令监听 DOM 事件，并在触发时运行一些 JavaScript 代码
+然而许多事件处理逻辑会更为复杂，所以直接把 JavaScript 代码写在 v-on 指令中是不可行的
+因此 v-on 还可以接收一个需要调用的方法名称</p>
+</blockquote>
+<pre><code>&lt;span v-on:click=&quot;clickMe()&quot;&gt;点击我输出日志&lt;/span&gt;
+</code></pre>
+<h6>5.10、v-text 读取文本</h6>
+<blockquote>
+<p>会将变量中的内容以文本的形式输出，哪怕内容中含有html标签，也不会解析，而是以文本的形式输出。
+如:someHtml: &#39;<i><b>我是一些html斜体字</b></i>&#39; 得到的结果就是：<i><b>我是一些html斜体字</b></i></p>
+</blockquote>
+<pre><code>&lt;span v-text=&quot;someText&quot;&gt;&lt;/span&gt;
+</code></pre>
+<h6>5.11、v-html 读取html标签</h6>
+<blockquote>
+<p>会将变量中的内容读取出来，会解析内容中的html标签
+如下得到的结果就是加粗的斜体字：我是一些html斜体字</p>
+</blockquote>
+<pre><code>&lt;span v-html=&quot;someHtml&quot;&gt;&lt;/span&gt;
+</code></pre>
+<h6>5.12、v-once 只渲染一次</h6>
+<blockquote>
+<p>v-once  进入页面时,只渲染一次,不再进行渲染:<span v-once>我只渲染一次</span>
+如果如下绑定在事件中，那么这个事件只会执行一次，而且是在渲染的时候自动帮我们执行了这个事件，之后的点击效果就失效</p>
+</blockquote>
+<pre><code>&lt;span v-on.once:click=&quot;clickMe()&quot;&gt;我是只渲染一次的点击事件&lt;/span&gt;
+</code></pre>
+<h6>5.13、v-pre 把标签内部的元素原位输出</h6>
+<blockquote>
+<p>不会解析somePreText内的东西，直接原样输出{{soemPreText}}</p>
+</blockquote>
+<pre><code>&lt;span v-pre&gt;{{soemPreText}}&lt;/span&gt;
+</code></pre>
+<h6>5.14、v-show 是否显示</h6>
+<blockquote>
+<p>控制dom是否显示，即显示或隐藏
+不同的是带有 v-show 的元素始终会被渲染并保留在 DOM 中。v-show 只是简单地切换元素的 CSS 属性 display。
+注意，v-show 不支持 <template> 元素，也不支持 v-else。</p>
+</blockquote>
+<pre><code>&lt;span v-show=&quot;condition&quot;&gt;显示&lt;/span&gt;&lt;br&gt;
+&lt;span v-show=&quot;!condition&quot;&gt;隐藏&lt;/span&gt;&lt;br&gt;
+</code></pre>
+
+</body>
+
+</html>
